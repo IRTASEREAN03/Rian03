@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rian</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+
+    <style>
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --primary: #0984e3;
+            --dark: #2d3436;
+            --light: #f4f7f6;
+            --success: #25d366;
+        }
+
+        body { background-color: var(--light); color: #333; overflow-x: hidden; }
+
+        /* Animasi Muncul saat Scroll */
+        .reveal { opacity: 0; transform: translateY(30px); transition: all 1s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Navbar */
+        nav {
+            display: flex; justify-content: space-around; align-items: center;
+            height: 75px; background: rgba(45, 52, 54, 0.98); color: white;
+            position: fixed; width: 100%; top: 0; z-index: 1000;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); }
+        .nav-links { display: flex; list-style: none; gap: 25px; }
+        .nav-links a { color: white; text-decoration: none; transition: 0.3s; font-weight: 500; }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Hero Section */
+        header {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
+                        url('https://images.unsplash.com/photo-1544197150-b99a580bb7a8?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; text-align: center; color: white; padding: 0 20px;
+        }
+        header h5 { font-size: 1.1rem; letter-spacing: 3px; color: var(--primary); margin-bottom: 10px; }
+        header h1 { font-size: 3.5rem; margin-bottom: 15px; }
+        header p { font-size: 1.2rem; max-width: 700px; margin-bottom: 30px; }
+
+        .btn {
+            padding: 12px 35px; background: var(--primary); color: white;
+            text-decoration: none; border-radius: 50px; font-weight: 600;
+            transition: 0.3s; display: inline-block; border: 2px solid var(--primary);
+        }
+        .btn:hover { background: transparent; color: var(--primary); transform: scale(1.05); }
+
+        /* Section Styling */
+        section { padding: 100px 10%; text-align: center; }
+        .section-title { font-size: 2.5rem; margin-bottom: 40px; position: relative; }
+        .section-title::after {
+            content: ''; display: block; width: 50px; height: 3px; background: var(--primary);
+            margin: 10px auto;
+        }
+
+        /* Card container */
+        .card-container { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 30px; }
+        .card { 
+            background: white; padding: 35px; border-radius: 15px; width: 300px; 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: 0.3s;
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .card i { font-size: 40px; color: var(--primary); margin-bottom: 15px; }
+
+        /* Music Player UI */
+        #music-ui {
+            position: fixed; bottom: 20px; left: 20px; z-index: 2000;
+            background: var(--primary); color: white; padding: 8px 15px;
+            border-radius: 30px; font-size: 13px; display: flex; align-items: center; gap: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer;
+        }
+
+        footer { background: var(--dark); color: white; padding: 30px; text-align: center; }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            header h1 { font-size: 2.5rem; }
+            section { padding: 70px 5%; }
+        }
+    </style>
+</head>
+<body onmouseover="playAuto()" onclick="playAuto()">
+
+    <audio id="bgMusic" loop>
+        <source src="https://www.bensound.com/bensound-music/bensound-slowmotion.mp3" type="audio/mpeg">
+    </audio>
+
+    <div id="music-ui" onclick="toggleMusic(event)">
+        <i id="m-icon" class="fas fa-play"></i> <span id="m-text">Audio Autoplay</span>
+    </div>
+
+    <nav>
+        <div class="logo">RIAN FIRMANSYAH</div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">Tentang</a></li>
+            <li><a href="#skills">Skill</a></li>
+            <li><a href="#contact">Kontak</a></li>
+        </ul>
+    </nav>
+
+    <header id="home">
+        <h5 class="animate__animated animate__fadeIn">WELCOME</h5>
+        <h1 class="animate__animated animate__backInDown">Rian Firmansyah</h1>
+        <p class="animate__animated animate__fadeInUp">Siap Bekerja & Berkontribusi untuk Perusahaan Anda</p>
+        <a href="#contact" class="btn animate__animated animate__pulse animate__infinite">Hubungi Saya</a>
+    </header>
+
+    <section id="about" class="reveal">
+        <h2 class="section-title">Tentang Saya</h2>
+        <p style="max-width: 800px; margin: 0 auto; font-size: 1.1rem; color: #555;">
+            Saya adalah individu yang jujur, disiplin, dan memiliki semangat tinggi dalam bekerja. 
+            Lulusan yang siap mengaplikasikan kemampuan saya secara profesional. 
+            Saya dikenal sebagai pribadi yang mampu bekerja sama dengan baik di dalam tim untuk mencapai target perusahaan.
+        </p>
+    </section>
+
+    <section id="skills" class="reveal" style="background: #ebf2f7;">
+        <h2 class="section-title">Keahlian</h2>
+        <div class="card-container">
+            <div class="card">
+                <i class="fas fa-check-circle"></i>
+                <h3>Teknis</h3>
+                <p>Penguasaan Microsoft Office, Entry Data, dan Instalasi Jaringan WiFi.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-users"></i>
+                <h3>Soft Skill</h3>
+                <p>Komunikasi Baik, Kerjasama Tim, & Integritas Tinggi.</p>
+            </div>
+            <div class="card">
+                <i class="fas fa-brain"></i>
+                <h3>Problem Solving</h3>
+                <p>Menganalisis masalah dan menemukan solusi secara cepat dan tepat.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="reveal">
+        <h2 class="section-title">Kontak Saya</h2>
+        <p>Silakan klik tombol di bawah untuk menghubungi saya:</p>
+        <div class="card-container">
+            <a href="mailto:rianfirmansyah030805@gmail.com" class="btn"><i class="fas fa-envelope"></i> Email</a>
+            <a href="https://wa.me/6287863667444" class="btn" style="background: var(--success); border-color: var(--success);">
+                <i class="fab fa-whatsapp"></i> WhatsApp
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Rian Firmansyah</p>
+    </footer>
+
+    <script>
+        // Musik Autoplay Logic
+        var audio = document.getElementById("bgMusic");
+        var mIcon = document.getElementById("m-icon");
+        var mText = document.getElementById("m-text");
+        var started = false;
+
+        function playAuto() {
+            if (!started) {
+                audio.play();
+                mIcon.classList.replace("fa-play", "fa-pause");
+                mText.innerText = "Music On";
+                started = true;
+            }
+        }
+
+        function toggleMusic(e) {
+            e.stopPropagation();
+            if (audio.paused) {
+                audio.play();
+                mIcon.classList.replace("fa-play", "fa-pause");
+                mText.innerText = "Music On";
+            } else {
+                audio.pause();
+                mIcon.classList.replace("fa-pause", "fa-play");
+                mText.innerText = "Music Off";
+            }
+        }
+
+        // Reveal Animation on Scroll
+        window.addEventListener("scroll", function() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                if (elementTop < windowHeight - 150) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        });
+    </script>
+</body>
+</html>
